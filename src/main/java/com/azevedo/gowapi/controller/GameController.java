@@ -2,11 +2,10 @@ package com.azevedo.gowapi.controller;
 
 import com.azevedo.gowapi.model.Game;
 import com.azevedo.gowapi.repository.GameRepository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/game")
@@ -19,9 +18,18 @@ public class GameController {
     }
 
     @GetMapping
-    public List<Game> find(){
-        List<Game> games = gameRepository.findAll();
-        return games;
+    public List<Game> findAll(){
+        return gameRepository.findAll();
+    }
+
+    @GetMapping("{id}")
+    public Game findById(@PathVariable("id") UUID id) {
+        return gameRepository.findById(id).orElse(null);
+    }
+
+    @DeleteMapping("{id}")
+    public void deleteById(@PathVariable("id") UUID id){
+        gameRepository.deleteById(id);
     }
 
 }
