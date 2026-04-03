@@ -8,16 +8,15 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.Instant;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "game")
+@Table(name = "character")
 @Data
 @ToString(exclude = "gameCaracters")
 @EntityListeners(AuditingEntityListener.class)
-public class Game {
+public class Caracter {
 
     @Id
     @Column
@@ -27,18 +26,8 @@ public class Game {
     @Column(nullable = false, length = 100)
     private String name;
 
-    @Column(nullable = false, length = 1000)
-    private String description;
-
     @Column(nullable = false, length = 3000)
     private String history;
-
-    @Column(nullable = false, name = "release_date")
-    private LocalDate releaseDate;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 30)
-    private Platform platform;
 
     @CreatedDate
     @Column(name = "created_at")
@@ -49,9 +38,8 @@ public class Game {
     private Instant updatedAt;
 
     @OneToMany(
-            mappedBy = "game",
-            fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL
+            mappedBy = "caracter",
+            fetch = FetchType.LAZY
     )
     private List<GameCaracter> gameCaracters;
 
